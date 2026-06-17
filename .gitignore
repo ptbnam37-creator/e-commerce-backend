@@ -1,0 +1,5 @@
+pocketbase.exe
+*.log
+pb_data/*.db-shm
+pb_data/*.db-wal
+pb_data/*.tmp
