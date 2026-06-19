@@ -14,5 +14,5 @@ COPY ./pb_migrations /pb/pb_migrations
 # Expose port
 EXPOSE 8090
 
-# Start PocketBase - data persists via Railway volume mounted at /pb/pb_data
-CMD ["/bin/sh", "-c", "/pb/pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=/pb/pb_data"]
+# Start PocketBase - force create an admin account, then serve
+CMD ["/bin/sh", "-c", "/pb/pocketbase superuser upsert admin@admin.com 1234567890 --dir=/pb/pb_data && /pb/pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=/pb/pb_data"]
