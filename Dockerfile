@@ -14,5 +14,5 @@ COPY ./pb_migrations /pb/pb_migrations
 # Expose port
 EXPOSE 8090
 
-# Start PocketBase - wipe data.db to force fresh start, then run
-CMD ["/bin/sh", "-c", "rm -f /pb/pb_data/data.db && /pb/pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=/pb/pb_data"]
+# Start PocketBase - data persists via Railway volume mounted at /pb/pb_data
+CMD ["/bin/sh", "-c", "/pb/pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=/pb/pb_data"]
