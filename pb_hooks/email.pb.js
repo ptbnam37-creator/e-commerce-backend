@@ -1,8 +1,17 @@
 routerAdd("POST", "/api/change-email", (c) => {
     try {
-        const info = $apis.requestInfo(c);
-        const id = info.data?.id;
-        const newEmail = info.data?.email;
+        let id, newEmail;
+        if (typeof $apis !== 'undefined' && typeof $apis.requestInfo === 'function') {
+            const info = $apis.requestInfo(c);
+            id = info.data?.id;
+            newEmail = info.data?.email;
+        } else if (typeof c.requestInfo === 'function') {
+            const info = c.requestInfo();
+            id = info.body?.id || info.data?.id;
+            newEmail = info.body?.email || info.data?.email;
+        } else {
+            throw new Error("Unable to parse request body");
+        }
         
         if (!id || !newEmail) {
             return c.json(400, { "message": "Missing id or email" });
