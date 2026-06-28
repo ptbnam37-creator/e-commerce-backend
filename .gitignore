@@ -3,3 +3,4 @@ pocketbase.exe
 pb_data/*.db-shm
 pb_data/*.db-wal
 pb_data/*.tmp
+!pb_data/data.db
